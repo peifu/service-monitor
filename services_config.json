@@ -1,0 +1,210 @@
+[
+  {
+    "id": "svc_1",
+    "name": "Security Home",
+    "host": "tee.amlogic.com",
+    "port": 80,
+    "description": "Security Home",
+    "enabled": true
+  },
+  {
+    "id": "svc_2",
+    "name": "Security Org",
+    "host": "tee.amlogic.com",
+    "port": 2024,
+    "description": "Security Org",
+    "enabled": true
+  },
+  {
+    "id": "svc_3",
+    "name": "Work Assistant",
+    "host": "tee.amlogic.com",
+    "port": 6006,
+    "description": "Work Assistant",
+    "enabled": true
+  },
+  {
+    "id": "svc_5",
+    "name": "Security Wiki",
+    "host": "tee.amlogic.com",
+    "port": 2021,
+    "description": "Security Wiki",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775556458454_3000",
+    "name": "Security Audio Doc",
+    "host": "tee.amlogic.com",
+    "port": 2018,
+    "description": "Security Audio Doc",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775556493900_3000",
+    "name": "Security Bulletin",
+    "host": "tee.amlogic.com",
+    "port": 2042,
+    "description": "https://tee.amlogic.com/bulletin/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775556494417_3000",
+    "name": "Keywrapper",
+    "host": "10.68.11.138",
+    "port": 8888,
+    "description": "http://10.68.11.138:8888",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775556883606_3000",
+    "name": "Security Chatbot",
+    "host": "10.68.11.138",
+    "port": 7700,
+    "description": "https://tee.amlogic.com/chatbot/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775556909108_3000",
+    "name": "Security Debug",
+    "host": "10.68.11.138",
+    "port": 3000,
+    "description": "https://tee.amlogic.com/debug",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775556938707_3000",
+    "name": "Platform Home",
+    "host": "platform.amlogic.com",
+    "port": 80,
+    "description": "https://platform.amlogic.com/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775557132233_3000",
+    "name": "Platform Org",
+    "host": "platform.amlogic.com",
+    "port": 2025,
+    "description": "https://platform.amlogic.com/org/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775557165527_3000",
+    "name": "Platform Knowledge Center",
+    "host": "platform.amlogic.com",
+    "port": 2026,
+    "description": "https://platform.amlogic.com/knowledge/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775557207944_3000",
+    "name": "RTOS Document",
+    "host": "platform.amlogic.com",
+    "port": 2027,
+    "description": "https://platform.amlogic.com/rtos/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775557239391_3000",
+    "name": "Amlogic Product",
+    "host": "platform.amlogic.com",
+    "port": 2028,
+    "description": "https://platform.amlogic.com/product/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775557270274_3000",
+    "name": "Platform Jira",
+    "host": "platform.amlogic.com",
+    "port": 2029,
+    "description": "https://platform.amlogic.com/jira/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775557366950_3000",
+    "name": "Smart Code",
+    "host": "10.68.11.124",
+    "port": 5004,
+    "description": "https://platform.amlogic.com/code/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775557394861_3000",
+    "name": "Platform Navi",
+    "host": "platform.amlogic.com",
+    "port": 2040,
+    "description": "https://platform.amlogic.com/navi/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775557673258_3000",
+    "name": "AI Document Formatter",
+    "host": "10.68.11.124",
+    "port": 5000,
+    "description": "http://10.68.11.124:5000/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775557706419_3000",
+    "name": "AI Data Sanitization",
+    "host": "10.68.11.124",
+    "port": 5001,
+    "description": "http://10.68.11.124:5001/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775633011094_3000",
+    "name": "AI Smart Wiki",
+    "host": "10.68.11.124",
+    "port": 5002,
+    "description": "http://10.68.11.124:5002/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775633048197_3000",
+    "name": "AI Email Expert",
+    "host": "10.68.11.124",
+    "port": 8080,
+    "description": "http://10.68.11.124:8080/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775633094341_3000",
+    "name": "TTF Test Report",
+    "host": "10.68.11.124",
+    "port": 5003,
+    "description": "http://10.68.11.124:5003/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775633125801_3000",
+    "name": "AI Code Reviewer",
+    "host": "10.68.11.124",
+    "port": 5004,
+    "description": "http://10.68.11.124:5004/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1775722943808_3000",
+    "name": "RTOS FTP",
+    "host": "platform.amlogic.com",
+    "port": 2121,
+    "description": "RTOS FTP",
+    "enabled": true
+  },
+  {
+    "id": "svc_1778835846124_3000",
+    "name": "Knowledge FTP",
+    "host": "platform.amlogic.com",
+    "port": 2222,
+    "description": "Knowledge FTP",
+    "enabled": true
+  },
+  {
+    "id": "svc_1780899114555_3000",
+    "name": "Platform Family",
+    "host": "10.68.11.161",
+    "port": 8000,
+    "description": "http://10.68.11.161:8000/",
+    "enabled": true
+  }
+]
