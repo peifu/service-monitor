@@ -1,7 +1,4 @@
-# server_monitor.py
-# 完整的服务监控系统 - Flask后端 + 前端界面
-# 运行方式: python server_monitor.py
-# 默认端口: 5000，访问 http://localhost:5000
+# service_monitor.py
 
 import os
 import socket
@@ -17,18 +14,14 @@ app = Flask(__name__)
 app.secret_key = 'your-secret-key-change-in-production-2024'
 CORS(app)
 
-# ==================== 用户数据 ====================
-# 默认用户名: admin, 密码: admin123
 USERS = {
     'admin': {
-        'password': 'admin123',
+        'password': 'security123',
         'role': 'admin',
         'created_at': datetime.now().isoformat()
     }
 }
 
-# ==================== 服务配置 ====================
-# 默认监控的服务列表
 DEFAULT_SERVICES = [
     {'id': 'svc_1', 'name': 'Nginx Web', 'host': '127.0.0.1', 'port': 80, 'description': 'HTTP 服务器', 'enabled': True},
     {'id': 'svc_2', 'name': '业务服务', 'host': '10.68.11.138', 'port': 8888, 'description': '内部业务服务', 'enabled': True},
@@ -37,7 +30,6 @@ DEFAULT_SERVICES = [
     {'id': 'svc_5', 'name': 'Redis 缓存', 'host': '127.0.0.1', 'port': 6379, 'description': 'Key-Value 缓存', 'enabled': True},
 ]
 
-# 服务配置存储文件
 SERVICES_FILE = 'services_config.json'
 LOGS_FILE = 'monitor_logs.json'
 
@@ -47,7 +39,6 @@ def load_services():
         if os.path.exists(SERVICES_FILE):
             with open(SERVICES_FILE, 'r', encoding='utf-8') as f:
                 services = json.load(f)
-                # 确保每个服务都有id
                 for svc in services:
                     if 'id' not in svc:
                         svc['id'] = f"svc_{int(time.time())}_{svc.get('port', 0)}"
@@ -89,7 +80,6 @@ def save_logs(logs):
         print(f"保存日志失败: {e}")
         return False
 
-# ==================== 端口检测函数 ====================
 def check_tcp_port(host, port, timeout=3):
     """
     真正的TCP端口检测
@@ -135,7 +125,6 @@ def check_all_services(services):
             results[svc['id']] = {'online': False, 'error': '服务已禁用'}
     return results
 
-# ==================== 日志记录 ====================
 def add_log(service_id, service_name, host, port, status, error_msg=None, changed=False):
     """添加检测日志"""
     logs = load_logs()
@@ -155,7 +144,6 @@ def add_log(service_id, service_name, host, port, status, error_msg=None, change
     save_logs(logs)
     return log_entry
 
-# ==================== 认证装饰器 ====================
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -164,14 +152,13 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-# ==================== HTML 模板 ====================
 LOGIN_TEMPLATE = '''
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>服务监控系统 - 登录</title>
+    <title>服务监控系统 | 登录</title>
     <style>
         * {
             margin: 0;
@@ -285,9 +272,6 @@ LOGIN_TEMPLATE = '''
             </div>
             <button type="submit">登 录</button>
         </form>
-        <div class="demo-info">
-            🔑 演示账号: admin / admin123
-        </div>
     </div>
 </body>
 </html>
