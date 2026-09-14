@@ -10,9 +10,29 @@ import json
 from flask import Flask, render_template_string, request, jsonify, session, redirect, url_for
 from flask_cors import CORS
 
+BASE_URL = os.environ.get('MONITOR_BASE_URL', '/monitor').rstrip('/')
+
+class PrefixMiddleware:
+    def __init__(self, app, prefix=''):
+        self.app = app
+        self.prefix = prefix
+    def __call__(self, environ, start_response):
+        path = environ.get('PATH_INFO', '')
+        if path == self.prefix:
+            environ['PATH_INFO'] = '/'
+        elif path.startswith(self.prefix + '/'):
+            environ['PATH_INFO'] = path[len(self.prefix):]
+        return self.app(environ, start_response)
+
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-change-in-production-2024'
 CORS(app)
+app.config['APPLICATION_ROOT'] = BASE_URL
+app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix=BASE_URL)
+
+@app.context_processor
+def inject_base_url():
+    return {'BASE_URL': BASE_URL}
 
 USERS = {
     'admin': {
@@ -148,7 +168,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user_id' not in session:
-            return jsonify({'error': '未登录', 'redirect': '/login'}), 401
+            return jsonify({'error': '未登录', 'redirect': url_for('login')}), 401
         return f(*args, **kwargs)
     return decorated_function
 
@@ -693,6 +713,7 @@ MAIN_TEMPLATE = '''
         </div>
     </div>
     <script>
+        const BASE_URL = '{{ BASE_URL }}';
         let currentTab = 'status';
         let autoRefreshInterval = null;
         let refreshSeconds = 10;
@@ -706,26 +727,27 @@ MAIN_TEMPLATE = '''
         }
         
         async function apiCall(url, options = {}) {
-            const res = await fetch(url, {
+            const res = await fetch(BASE_URL + url, {
                 headers: { 'Content-Type': 'application/json' },
                 ...options
             });
             if (res.status === 401) {
-                window.location.href = '/login';
+                const data = await res.json().catch(() => ({}));
+                window.location.href = data.redirect || BASE_URL + 'login';
                 return null;
             }
             return res.json();
         }
         
         async function checkAllServices() {
-            const result = await apiCall('/api/check-all', { method: 'POST' });
+            const result = await apiCall('api/check-all', { method: 'POST' });
             if (result && currentTab === 'status') renderStatusView();
             if (result) showToast(`检测完成: ${result.online_count}/${result.total} 服务在线`, false);
         }
         
         async function renderStatusView() {
-            const services = await apiCall('/api/services');
-            const status = await apiCall('/api/status');
+            const services = await apiCall('api/services');
+            const status = await apiCall('api/status');
             if (!services || !status) return;
             
             let onlineCount = 0;
@@ -781,7 +803,7 @@ MAIN_TEMPLATE = '''
         }
         
         async function renderConfigView() {
-            const services = await apiCall('/api/services');
+            const services = await apiCall('api/services');
             if (!services) return;
             
             let rows = '';
@@ -828,7 +850,7 @@ MAIN_TEMPLATE = '''
         }
         
         async function renderLogsView() {
-            const logs = await apiCall('/api/logs');
+            const logs = await apiCall('api/logs');
             if (!logs) return;
             
             let logsHtml = '';
@@ -879,7 +901,7 @@ MAIN_TEMPLATE = '''
                 showToast('请填写完整信息（名称、主机、端口）', true); 
                 return; 
             }
-            const result = await apiCall('/api/services', { 
+            const result = await apiCall('api/services', { 
                 method: 'PUT', 
                 body: JSON.stringify({ id, name, host, port, description }) 
             });
@@ -892,7 +914,7 @@ MAIN_TEMPLATE = '''
         
         window.deleteService = async (id) => {
             if (!confirm('确定删除此服务吗？')) return;
-            const result = await apiCall(`/api/services/${id}`, { method: 'DELETE' });
+            const result = await apiCall(`api/services/${id}`, { method: 'DELETE' });
             if (result) {
                 showToast('删除成功', false);
                 renderConfigView();
@@ -901,7 +923,7 @@ MAIN_TEMPLATE = '''
         };
         
         window.addService = async () => {
-            const result = await apiCall('/api/services', { 
+            const result = await apiCall('api/services', { 
                 method: 'POST', 
                 body: JSON.stringify({ 
                     name: '新服务', 
@@ -942,7 +964,7 @@ MAIN_TEMPLATE = '''
         }
         
         function logout() { 
-            window.location.href = '/logout'; 
+            window.location.href = BASE_URL + 'logout'; 
         }
         
         function escapeHtml(str) { 
