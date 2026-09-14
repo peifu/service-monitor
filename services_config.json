@@ -202,9 +202,105 @@
   {
     "id": "svc_1780899114555_3000",
     "name": "Platform Family",
-    "host": "10.68.11.161",
+    "host": "platform.amlogic.com",
     "port": 8000,
-    "description": "http://10.68.11.161:8000/",
+    "description": "http://platform.amlogic.com:8000/",
+    "enabled": true
+  },
+  {
+    "id": "svc_2136143275742_3000",
+    "name": "Platform Family FTP",
+    "host": "platform.amlogic.com",
+    "port": 2323,
+    "description": "Platform Family FTP",
+    "enabled": true
+  },
+  {
+    "id": "svc_2136200510698_3000",
+    "name": "Platform Family Photos Immich",
+    "host": "platform.amlogic.com",
+    "port": 2283,
+    "description": "http://10.68.11.92:2283/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1781255654094_3000",
+    "name": "Platform Chatbot",
+    "host": "10.68.18.151",
+    "port": 3001,
+    "description": "http://10.68.18.151:3001/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1781578726355_3000",
+    "name": "LogKit",
+    "host": "10.68.11.124",
+    "port": 80,
+    "description": "https://platform.amlogic.com/log/",
+    "enabled": true
+  },
+  {
+    "id": "svc_1781601035079_3000",
+    "name": "Signing Service",
+    "host": "10.18.11.37",
+    "port": 443,
+    "description": "signing.amlogic.com",
+    "enabled": true
+  },
+  {
+    "id": "svc_1781601086524_3000",
+    "name": "Signing Service 2",
+    "host": "10.18.11.38",
+    "port": 443,
+    "description": "signing.amlogic.com backup",
+    "enabled": true
+  },
+  {
+    "id": "svc_1781601111106_3000",
+    "name": "Device Signing Service",
+    "host": "10.18.11.114",
+    "port": 443,
+    "description": "device signing service",
+    "enabled": true
+  },
+  {
+    "id": "svc_1781601141756_3000",
+    "name": "Device Signing Service 2",
+    "host": "10.18.11.115",
+    "port": 443,
+    "description": "device signing service backup",
+    "enabled": true
+  },
+  {
+    "id": "svc_1782727629260_3000",
+    "name": "Jekins Diff",
+    "host": "10.68.11.124",
+    "port": 8001,
+    "description": "Jekins Diff",
+    "enabled": true
+  },
+  {
+    "id": "svc_1783062381153_3000",
+    "name": "Smart Draw",
+    "host": "10.68.11.124",
+    "port": 8002,
+    "description": "Smart Draw",
+    "enabled": true
+  },
+  {
+    "id": "svc_1786087347458_3000",
+    "name": "Security FTP",
+    "host": "10.68.11.163",
+    "port": 2121,
+    "description": "Security FTP",
+    "enabled": true
+  },
+  {
+    "id": "svc_1789126424512_3000",
+    "name": "Code Vision",
+    "host": "10.68.11.124",
+    "port": 8007,
+    "description": "Code Vision",
     "enabled": true
   }
 ]
