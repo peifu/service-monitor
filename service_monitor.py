@@ -100,7 +100,7 @@ def save_logs(logs):
         print(f"保存日志失败: {e}")
         return False
 
-def check_tcp_port(host, port, timeout=3):
+def check_tcp_port(host, port, timeout=2):
     """
     真正的TCP端口检测
     通过建立socket连接来判断端口是否开放
@@ -746,9 +746,21 @@ MAIN_TEMPLATE = '''
         }
         
         async function renderStatusView() {
-            const services = await apiCall('api/services');
-            const status = await apiCall('api/status');
-            if (!services || !status) return;
+            let services, status;
+            try {
+                services = await apiCall('api/services');
+                status = await apiCall('api/status');
+            } catch (e) {
+                console.error('renderStatusView error:', e);
+                document.getElementById('statusView').innerHTML = 
+                    `<div class="empty-logs">❌ 加载失败: ${escapeHtml(e.message)}</div>`;
+                return;
+            }
+            if (!services || !status) {
+                document.getElementById('statusView').innerHTML = 
+                    `<div class="empty-logs">❌ 数据加载失败，请检查登录状态</div>`;
+                return;
+            }
             
             let onlineCount = 0;
             services.forEach(s => { if (status[s.id]?.online) onlineCount++; });
@@ -1062,11 +1074,14 @@ def get_status():
     services = load_services()
     status_map = {}
     for svc in services:
-        if svc.get('enabled', True):
-            result = check_service_status(svc)
-            status_map[svc['id']] = result
-        else:
-            status_map[svc['id']] = {'online': False, 'error': '服务已禁用'}
+        try:
+            if svc.get('enabled', True):
+                result = check_service_status(svc)
+                status_map[svc['id']] = result
+            else:
+                status_map[svc['id']] = {'online': False, 'error': '服务已禁用'}
+        except Exception as e:
+            status_map[svc['id']] = {'online': False, 'error': str(e)}
     return jsonify(status_map)
 
 @app.route('/api/check-all', methods=['POST'])
@@ -1116,4 +1131,4 @@ if __name__ == '__main__':
     print(f"默认账号: admin")
     print(f"默认密码: admin123")
     print("=" * 50)
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
